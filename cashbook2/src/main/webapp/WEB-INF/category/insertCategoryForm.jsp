@@ -1,10 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%
-	if (session.getAttribute("id") == null && session.getAttribute("pw") == null ) {
-    	response.sendRedirect("/cashbook/login/logout.jsp");
-    	return;
-}
-%> 
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -40,7 +35,7 @@
     <div class="container d-flex align-items-center justify-content-center search-container">
         <div class="card search-card p-4">
             <h3 class="text-center mb-4 fw-bold"> 가계부 카테고리 작성</h3>
-            <form action="/cashbook/category/insertCategoryAction.jsp" method="post">
+            <form action="<%=request.getContextPath() %>/insertCategory" method="post">
                 <div class="mb-3">
                     <label for="category" class="form-label">수입 지출 선택</label>
                     <select class="form-select" id="category" name="category" required>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	if (session.getAttribute("id") == null && session.getAttribute("pw") == null ) {
-	    response.sendRedirect("/cashbook/login/logout.jsp");
+	    response.sendRedirect(request.getContextPath() +"/loginAction");
 	    return; 
 	}
 %>
@@ -45,16 +45,16 @@
           <a class="nav-link active" href="#">홈</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/cashbook/category/categoryList.jsp">카테고리 목록</a>
+          <a class="nav-link" href="<%=request.getContextPath()%>/categoryList">카테고리 목록</a>
         </li>
          <li class="nav-item">
           <a class="nav-link" href="/cashbook/monthList.jsp">달력 목록</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/cashbook/login/updateAdminPwForm.jsp">비밀번호 수정</a>
+          <a class="nav-link" href="<%=request.getContextPath()%>/updateAction">비밀번호 수정 </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-danger" href="/cashbook/login/logout.jsp">로그아웃</a>
+          <a class="nav-link text-danger" href="<%=request.getContextPath()%>/loginAction">로그아웃</a>
         </li>
       </ul>
     </div>

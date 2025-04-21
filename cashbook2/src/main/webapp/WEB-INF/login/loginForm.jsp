@@ -45,7 +45,7 @@
     <div class="container d-flex align-items-center justify-content-center login-container">
         <div class="card login-card p-4">
             <h3 class="text-center mb-4 fw-bold">로그인</h3>
-            <form action="/cashbook/login/loginAction.jsp" method="post">
+            <form action="<%=request.getContextPath()%>/loginAction"  method="post">
                 <div class="mb-3">
                     <label for="id" class="form-label">아이디</label>
                     <input type="text" class="form-control" id="id" name="id" placeholder="아이디를 입력하세요">

@@ -3,32 +3,10 @@
 <%@ page import="model.*" %>
 <%@ page import="java.util.*" %>
 <%
-    if (session.getAttribute("id") == null && session.getAttribute("pw") == null) {
-        response.sendRedirect("/cashbook/login/logout.jsp");
-        return;
-    }
-
-    int currentPage = 1;
-    int rowPerPage = 10;
-    if (request.getParameter("currentPage") != null) {
-        currentPage = Integer.parseInt(request.getParameter("currentPage"));
-    }
-
-    CategoryDao categoryDao = new CategoryDao();
-    int total = categoryDao.totalCategory();
-	
-    
-    Paging p = new Paging();
-    p.setCurrentPage(currentPage);
-    p.setRowPerPage(rowPerPage);
-
-    int lastPage = p.getlastPage(total);
-    int beginRow = p.getBeginRow();
-
-    System.out.println("total: "+ total);
-    System.out.println("lastPage: "+ lastPage);
-    
-    ArrayList<HashMap<String, Object>> list = categoryDao.selectCategory(beginRow, rowPerPage);
+		ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String ,Object>>) request.getAttribute("list");
+		Paging p  = (Paging) request.getAttribute("Paging");
+		int currentPage  = p.getCurrentPage(); 
+		Integer lastPage =  (Integer) request.getAttribute("lastPage");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -91,7 +69,7 @@
     <div class="main-card">
         <h3 class="text-center fw-bold mb-4 d-flex justify-content-between align-items-center">
     	<span class="ms-2">카테고리 리스트</span>
-    	<a href="/cashbook/insertCategoryForm.jsp" class="btn btn-primary btn-sm">+ 카테고리 추가</a>
+    	<a href="<%=request.getContextPath()%>/insertCategory" class="btn btn-primary btn-sm">+ 카테고리 추가</a>
 		</h3>
         <table class="table table-hover text-center align-middle">
             <thead class="table-light">
@@ -109,7 +87,7 @@
                         <td><%= map.get("num") %></td>
                         <td><%= map.get("kind") %></td>
                         <td><%= map.get("title") %></td>
-                        <td><a href="/cashbook/category/updateCategoryTitleForm.jsp?num=<%=map.get("num")%>">수정</a></td>
+                        <td><a href="<%=request.getContextPath()%>/updateCategory?num=<%=map.get("num")%>">수정</a></td>
                         <td><a href="/cashbook/category/deleteCategoryAction.jsp?num=<%=map.get("num")%>">삭제</a></td>
                     </tr>
                 <% } %>
@@ -120,13 +98,13 @@
         <div class="d-flex justify-content-center mt-3">
             <div class="pagination">
                 <% if(currentPage > 1) { %>
-                    <a href="/cashbook/category/categoryList.jsp?currentPage=<%= currentPage - 1 %>" class="btn btn-outline-secondary btn-sm">이전</a>
+                    <a href="<%=request.getContextPath()%>/categoryList?currentPage=<%= currentPage - 1 %>" class="btn btn-outline-secondary btn-sm">이전</a>
                 <% } %>
 
                 <span class="mx-2 fw-bold"><%= currentPage %> / <%=lastPage%></span>
 
                 <% if(currentPage < lastPage) { %>
-                    <a href="/cashbook/category/categoryList.jsp?currentPage=<%= currentPage + 1 %>" class="btn btn-outline-secondary btn-sm">다음</a>
+                    <a  href=" <%=request.getContextPath()%>/categoryList?currentPage=<%= currentPage + 1 %>" class="btn btn-outline-secondary btn-sm">다음</a>
                 <% } %>
             </div>
         </div>
